@@ -5,7 +5,6 @@ from datetime import datetime
 
 primary_key = ['id']
 file1, file2 = 'test_a.csv', 'test_b.csv'
-
 separator = ','
 
 # Create a timestamped directory name
