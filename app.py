@@ -23,6 +23,10 @@ def load_csv(filename, primary_key):
 # Load the CSV files
 df1, df2 = load_csv(file1, primary_key), load_csv(file2, primary_key)
 
+# Replace NaN values with an empty string
+df1 = df1.fillna('')
+df2 = df2.fillna('')
+
 # Finding and saving column differences if they exist
 missing_cols = {
     'Missing Columns in a.csv': df2.columns.difference(df1.columns),
