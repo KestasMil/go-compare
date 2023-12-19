@@ -3,6 +3,7 @@ import os
 import json
 from datetime import datetime
 import numpy as np
+import re
 
 # CONFIG for this run
 config = {
@@ -77,7 +78,8 @@ def track_changes():
             key_filter &= (df[col] == key[0][i])
         
         record_count = df[key_filter].shape[0]
-        folder_name = f"{key_str}_(count-{record_count})"
+        valid_key_str = re.sub(r'[\\/*?:"<>|]', '', key_str)
+        folder_name = f"{valid_key_str}_(count-{record_count})"
         
         filename = f"{col_name}_{len(group)}.csv"
         filepath = os.path.join(output_root_dir, folder_name, filename)
