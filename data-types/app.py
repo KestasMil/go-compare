@@ -13,12 +13,15 @@ def read_csv_to_df(file_name: str) -> pd.DataFrame:
     return df
 
 def try_parse_datetime(df, col_name):
-    """ Attempt to parse a column as datetime only if all non-empty cells can be parsed. """
-    if df[col_name].dtype == 'object':
-        temp_series = pd.to_datetime(df[col_name], errors='coerce')
-        # Check if all non-NaN entries in the original series were successfully parsed
-        if temp_series.notna().equals(df[col_name].notna()):
-            return temp_series
+    """Attempt to parse a column as datetime, handling exceptions."""
+    try:
+        if df[col_name].dtype == 'object':
+            temp_series = pd.to_datetime(df[col_name], errors='coerce')
+            # Check if all non-NaN entries in the original series were successfully parsed
+            if temp_series.notna().equals(df[col_name].notna()):
+                return temp_series
+    except AttributeError as e:
+        print(f"Error parsing column '{col_name}' as datetime: {e}")
     return df[col_name]
 
 def is_boolean(series):
