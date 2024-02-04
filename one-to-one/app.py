@@ -48,7 +48,7 @@ missing_records = {
 
 if any(len(records) > 0 for records in missing_records.values()):
     # Convert MultiIndex to list of tuples
-    missing_records = {k: [tuple(index) for index in v.tolist()] for k, v in missing_records.items()}
+    missing_records = {k: [(index,) if isinstance(index, int) else tuple(index) for index in v.tolist()] for k, v in missing_records.items()}
     
     # Create DataFrame from this modified dictionary
     missing_records_df = pd.DataFrame.from_dict(missing_records, orient='index').transpose()

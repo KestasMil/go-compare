@@ -13,7 +13,7 @@ def read_csv_to_df(file_name: str) -> pd.DataFrame:
     return df
 
 def try_parse_datetime(df, col_name):
-    """Attempt to parse a column as datetime, handling exceptions."""
+    """ Attempt to parse a column as datetime only if all non-empty cells can be parsed. """
     try:
         if df[col_name].dtype == 'object':
             temp_series = pd.to_datetime(df[col_name], errors='coerce')
